@@ -1,1 +1,10 @@
-/* Empty. Add your own CSS if you like */
+.notification span{
+    position: absolute;
+    top: -10%;
+    right: 10%;
+    width: 18px;
+    height: 18px;
+    border-radius: 50px;
+    background: var($youper);
+    /*border: 2px solid var(--ion-color-medium-shade);*/
+}

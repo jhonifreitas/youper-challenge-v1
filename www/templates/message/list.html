@@ -1,13 +1,13 @@
 <ion-view>
   <ion-nav-bar class="bar-stable">
-    <ion-nav-back-button></ion-nav-back-button>
+    <ion-nav-back-button class="button-light"></ion-nav-back-button>
   </ion-nav-bar>
 
   <ion-content class="padding">
     <div class="card" ng-repeat="object in list" ng-click="goToDetail(object)">
       <span></span>
       <div class="padding">
-        <small class="time">{{ object.createdAt }}!</small>
+        <small class="time">{{ object.createdAt |timeAgo }}!</small>
       </div>
       <div class="item item-body">
         <h2 class="title">{{ object.title }}</h2>

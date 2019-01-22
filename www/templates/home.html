@@ -1,12 +1,12 @@
 <ion-view>
-  <ion-nav-bar class="bar-stable">
+  <ion-nav-bar>
     <ion-nav-buttons side="left">
-      <button class="button button-icon button-clear ion-person" ng-click="setAvatar()">
+      <button class="button button-icon button-clear button-light ion-person" ng-click="setAvatar()">
         <ion-avatar *ngIf="user && user.avatar else loading"><img [src]="user.avatar"></ion-avatar>
       </button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-      <a class="button button-icon button-clear ion-ios-bell notification" href="#/messages">
+      <a class="button button-icon button-clear button-stable ion-ios-bell notification" href="#/messages">
         <span ng-if="hasMessage"></span>
       </a>
     </ion-nav-buttons>

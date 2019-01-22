@@ -1,3 +1,5 @@
+.pane{background-color: #555;}
+.bar{background: none !important;}
 .notification span{
     position: absolute;
     top: -10%;
@@ -7,4 +9,26 @@
     border-radius: 50px;
     background: var($youper);
     /*border: 2px solid var(--ion-color-medium-shade);*/
+}
+.modal{
+    width: auto;
+    min-height: auto;
+    border-radius: 15px;
+    top: 15%;
+    bottom: 15%;
+    left: 5%;
+    right: 5%;
+}
+.modal-backdrop-bg{
+    background-color: rgba(0,0,0,.5);
+}
+.modal .button{
+    padding: 0 45px;
+    border-radius: 25px;
+}
+.card .body{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1;
 }

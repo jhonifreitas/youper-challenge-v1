@@ -1,13 +1,31 @@
-angular.module('starter.controllers', [])
-
+angular.module('app.controllers', [])
 .controller('AppCtrl', function($scope) {
 
   $scope.user = null;
-  $scope.user_id = 't9l18UKPut3npvMzNNjC';
   $scope.hasMessage = false;
 
+  user_id = 't9l18UKPut3npvMzNNjC';
+
+  firebase.firestore().collection("users").doc(user_id).get()
+  .then(function(snapshot) {
+    $scope.user = snapshot.data();
+    $scope.$apply();
+  });
+
+  firebase.firestore().collection("messages").where("user", "==", user_id).get()
+  .then(function(snapshot) {
+    snapshot.forEach(function(doc) {
+      if (doc.data().new) {
+        $scope.hasMessage = true;
+        $scope.$apply();
+        return;
+      }
+    });
+    $scope.$apply();
+  });
+
   $scope.setAvatar = function() {
-    console.log('alskdjaslkdjlas')
+    console.log('setAvatar')
   };
 })
 
@@ -15,14 +33,14 @@ angular.module('starter.controllers', [])
   $scope.list = [];
   user_id = 't9l18UKPut3npvMzNNjC';
 
-  firebase.firestore().collection("messages").where("user", "==", user_id)
-  .get().then(function(querySnapshot) {
-    querySnapshot.forEach(function(doc) {
+  firebase.firestore().collection("messages").where("user", "==", user_id).get()
+  .then(function(snapshot) {
+    console.log(snapshot)
+    snapshot.forEach(function(doc) {
       $scope.list.push({ id: doc.id, ...doc.data() });
     });
-    $scope.$apply()
+    $scope.$apply();
   });
-
 
   $scope.close = function() {
     $scope.modal.hide();
@@ -30,8 +48,13 @@ angular.module('starter.controllers', [])
 
   $scope.goToDetail = function(object) {
     object.new = false;
+    id = object.id;
+    delete object.id;
+    delete object.$$hashKey;
     $scope.object = object;
-    firebase.firestore().collection("messages").doc(object.id).update(object);
+
+    firebase.firestore().collection("messages").doc(id).update(object);
+
     $ionicModal.fromTemplateUrl('templates/message/detail.html', {
       scope: $scope
     }).then(function(modal) {

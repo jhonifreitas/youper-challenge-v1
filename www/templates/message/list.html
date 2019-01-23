@@ -4,10 +4,10 @@
   </ion-nav-bar>
 
   <ion-content class="padding">
-    <div class="card" ng-repeat="object in list" ng-click="goToDetail(object)">
+    <div ng-repeat="object in list" ng-click="goToDetail(object)" ng-class="'card '+(object.new ? 'new' : '')">
       <span></span>
       <div class="padding">
-        <small class="time">{{ object.createdAt |timeAgo }}!</small>
+        <small class="time padding-horizontal">{{ object.createdAt |timeAgo }}!</small>
       </div>
       <div class="item item-body">
         <h2 class="title">{{ object.title }}</h2>

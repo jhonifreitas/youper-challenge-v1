@@ -9,7 +9,7 @@
   var config = window.__env;
   firebase.initializeApp(config);
 
-  angular.module('app', ['ionic', 'firebase', 'app.controllers'])
+  angular.module('app', ['ionic', 'ngCordova', 'firebase', 'app.controllers'])
   .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
       if (window.cordova && window.Keyboard) {

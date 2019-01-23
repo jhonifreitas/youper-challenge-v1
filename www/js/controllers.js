@@ -1,14 +1,14 @@
 angular.module('app.controllers', [])
-.controller('AppCtrl', function($scope) {
+.controller('AppCtrl', function($scope, $cordovaCamera) {
 
   $scope.user = null;
   $scope.hasMessage = false;
-
   user_id = 't9l18UKPut3npvMzNNjC';
 
   firebase.firestore().collection("users").doc(user_id).get()
   .then(function(snapshot) {
     $scope.user = snapshot.data();
+    window.localStorage.setItem('user', JSON.stringify($scope.user))
     $scope.$apply();
   });
 
@@ -25,17 +25,28 @@ angular.module('app.controllers', [])
   });
 
   $scope.setAvatar = function() {
-    console.log('setAvatar')
+
+    $cordovaCamera.getPicture({
+      quality: 90,
+      destinationType: Camera.DestinationType.DATA_URL,
+      sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+      allowEdit: false,
+      encodingType: Camera.EncodingType.JPEG,
+      popoverOptions: CameraPopoverOptions,
+      saveToPhotoAlbum: false,
+      correctOrientation: true
+    }).then(function(imageBase64) {
+      console.log(imageBase64)
+    });
   };
 })
 
 .controller('MessageCtrl', function($scope, $ionicModal) {
   $scope.list = [];
-  user_id = 't9l18UKPut3npvMzNNjC';
+  user_id = JSON.parse(window.localStorage.getItem('user')).id
 
   firebase.firestore().collection("messages").where("user", "==", user_id).get()
   .then(function(snapshot) {
-    console.log(snapshot)
     snapshot.forEach(function(doc) {
       $scope.list.push({ id: doc.id, ...doc.data() });
     });

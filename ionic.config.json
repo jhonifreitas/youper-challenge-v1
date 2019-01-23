@@ -1,6 +1,8 @@
 {
   "name": "youper-v1",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic1",
   "watchPatterns": [
     "scss/**/*",

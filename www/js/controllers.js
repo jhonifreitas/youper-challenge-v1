@@ -1,5 +1,5 @@
 angular.module('app.controllers', ['ngCordova'])
-.controller('AppCtrl', function($scope, $cordovaCamera, ApiService, StorageService) {
+.controller('AppCtrl', function($scope, $cordovaCamera, ApiService, StorageService, CameraService) {
 
   $scope.user = null;
   $scope.hasMessage = false;
@@ -19,18 +19,12 @@ angular.module('app.controllers', ['ngCordova'])
         return;
       }
     });
-    $scope.$apply();
   });
 
   $scope.setAvatar = function() {
-    $cordovaCamera.getPicture({
-      quality: 90,
-      destinationType: Camera.DestinationType.DATA_URL,
-      sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-      saveToPhotoAlbum: false,
-      correctOrientation: true
-    }).then(function(imageBase64) {
-      $scope.user.avatar = 'data:image/jpeg;base64,'+imageBase64;
+    CameraService.takePicture(Camera.PictureSourceType.PHOTOLIBRARY)
+    .then(function(image) {
+      $scope.user.avatar = image;
       ApiService.putUser($scope.id, $scope.user)
     });
   };

@@ -34,7 +34,7 @@ angular.module('app')
   }
 
   function putMessage(id, message){
-    delete message.id;
+    // delete message.id;
     delete message.$$hashKey;
     msgCollection.doc(id).update(message);
   }
@@ -61,5 +61,23 @@ angular.module('app')
     setUser: setUser,
     getUser: getUser
   };
+})
 
+.factory('CameraService', function($cordovaCamera) {
+
+  function takePicture(type){
+    return $cordovaCamera.getPicture({
+      quality: 90,
+      destinationType: Camera.DestinationType.DATA_URL,
+      sourceType: type,
+      saveToPhotoAlbum: false,
+      correctOrientation: true
+    }).then(function(imageBase64) {
+      return 'data:image/jpeg;base64,'+imageBase64;
+    });
+  }
+
+  return {
+    takePicture: takePicture
+  };
 })

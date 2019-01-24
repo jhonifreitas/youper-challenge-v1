@@ -9,7 +9,7 @@
   var config = window.__env;
   firebase.initializeApp(config);
 
-  angular.module('app', ['ionic', 'ngCordova', 'firebase', 'app.controllers'])
+  angular.module('app', ['ionic', 'ngCordova', 'firebase'])
   .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
       if (window.cordova && window.Keyboard) {
@@ -21,11 +21,4 @@
       }
     });
   })
-
-  .config(function($stateProvider, $urlRouterProvider) {
-    $stateProvider
-    .state('index', { url: '/', controller: 'AppCtrl', templateUrl: 'templates/home.html'})
-    .state('message', {url: '/messages', controller: 'MessageCtrl', templateUrl: 'templates/message/list.html'});
-    $urlRouterProvider.otherwise('/');
-  });
 }());

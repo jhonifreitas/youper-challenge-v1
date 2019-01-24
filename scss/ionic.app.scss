@@ -21,3 +21,95 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+/* DEFAULT */
+.pane{ background-color: $dark; }
+.bar{
+    background: none !important;
+    .hasAvatar{ min-height: 52px; }
+}
+.modal{
+    width: auto;
+    min-height: auto;
+    border-radius: 15px;
+    top: 15%;
+    bottom: 15%;
+    left: 10%;
+    right: 10%;
+}
+.modal-backdrop-bg{ background-color: rgba(0,0,0,.5); }
+
+/* HOME */
+#home {
+    .ion-person, .thumbnail img{
+        border-radius: 50%;
+        border: 1px solid $light;
+    }
+    .thumbnail img{
+        width: 50px;
+        height: 50px;
+        display: block;
+        max-width: 100%;
+        overflow: hidden;
+        object-fit: cover;
+    }
+    .notification span{
+        position: absolute;
+        top: -5%;
+        right: 5%;
+        width: 18px;
+        height: 18px;
+        border-radius: 50px;
+        background: #ffc900;
+        border: 2px solid $youper;
+    }
+}
+
+/* MESSAGES */
+#messages {
+    .card{
+        margin: 3% 8%;
+        border-radius: 15px;
+        position: relative;
+        overflow: visible;
+        background: $gray;
+
+        .new{ background: $light; }
+        .time{ color: #888; }
+        .title{ margin-top: 0; }
+        .body{
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1;
+        }
+        .item-body{
+            border: none;
+            background: transparent;
+            border-bottom-right-radius: 15px !important;
+            border-bottom-left-radius: 15px !important;
+        }
+        .new span{
+            position: absolute;
+            z-index: 9;
+            top: -6%;
+            right: -3%;
+            width: 20px;
+            height: 20px;
+            border-radius: 50px;
+            background: $youper;
+            border: 2px solid $dark;
+        }
+    }
+}
+
+/* DETAIL */
+#detail{
+    .padding{ padding: 5%; }
+    .time{ color: #888; }
+    .button{
+        padding: 0 45px;
+        border-radius: 25px;
+        background-color: $youper;
+        color: $light;
+    }
+}

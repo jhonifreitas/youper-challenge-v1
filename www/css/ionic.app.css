@@ -9873,3 +9873,94 @@ a.button {
   opacity: 0;
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
+
+/* DEFAULT */
+.pane {
+  background-color: #444; }
+
+.bar {
+  background: none !important; }
+  .bar .hasAvatar {
+    min-height: 52px; }
+
+.modal {
+  width: auto;
+  min-height: auto;
+  border-radius: 15px;
+  top: 15%;
+  bottom: 15%;
+  left: 10%;
+  right: 10%; }
+
+.modal-backdrop-bg {
+  background-color: rgba(0, 0, 0, 0.5); }
+
+/* HOME */
+#home .ion-person, #home .thumbnail img {
+  border-radius: 50%;
+  border: 1px solid #fff; }
+
+#home .thumbnail img {
+  width: 50px;
+  height: 50px;
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  object-fit: cover; }
+
+#home .notification span {
+  position: absolute;
+  top: -5%;
+  right: 5%;
+  width: 18px;
+  height: 18px;
+  border-radius: 50px;
+  background: #ffc900;
+  border: 2px solid #ffb347; }
+
+/* MESSAGES */
+#messages .card {
+  margin: 3% 8%;
+  border-radius: 15px;
+  position: relative;
+  overflow: visible;
+  background: #ccc; }
+  #messages .card .new {
+    background: #fff; }
+  #messages .card .time {
+    color: #888; }
+  #messages .card .title {
+    margin-top: 0; }
+  #messages .card .body {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1; }
+  #messages .card .item-body {
+    border: none;
+    background: transparent;
+    border-bottom-right-radius: 15px !important;
+    border-bottom-left-radius: 15px !important; }
+  #messages .card .new span {
+    position: absolute;
+    z-index: 9;
+    top: -6%;
+    right: -3%;
+    width: 20px;
+    height: 20px;
+    border-radius: 50px;
+    background: #ffb347;
+    border: 2px solid #444; }
+
+/* DETAIL */
+#detail .padding {
+  padding: 5%; }
+
+#detail .time {
+  color: #888; }
+
+#detail .button {
+  padding: 0 45px;
+  border-radius: 25px;
+  background-color: #ffb347;
+  color: #fff; }

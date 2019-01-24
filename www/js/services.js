@@ -37,7 +37,7 @@ angular.module('app')
   }
 
   function putMessage(id, message){
-    return $http.put(API_URL+'messages', message)
+    return $http.put(API_URL+'messages/'+id, message)
   }
 
   return {

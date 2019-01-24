@@ -59,8 +59,8 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
         width: 18px;
         height: 18px;
         border-radius: 50px;
-        background: #ffc900;
-        border: 2px solid $youper;
+        background: $youper;
+        border: 2px solid $dark;
     }
 }
 
@@ -73,7 +73,6 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
         overflow: visible;
         background: $gray;
 
-        .new{ background: $light; }
         .time{ color: #888; }
         .title{ margin-top: 0; }
         .body{
@@ -88,16 +87,19 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
             border-bottom-right-radius: 15px !important;
             border-bottom-left-radius: 15px !important;
         }
-        .new span{
-            position: absolute;
-            z-index: 9;
-            top: -6%;
-            right: -3%;
-            width: 20px;
-            height: 20px;
-            border-radius: 50px;
-            background: $youper;
-            border: 2px solid $dark;
+        &.new{
+            background: $light;
+            span{
+                position: absolute;
+                z-index: 9;
+                top: -6%;
+                right: -3%;
+                width: 20px;
+                height: 20px;
+                border-radius: 50px;
+                background: $youper;
+                border: 2px solid $dark;
+            }
         }
     }
 }

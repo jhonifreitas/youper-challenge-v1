@@ -12,13 +12,8 @@ angular.module('app.controllers', ['ngCordova'])
   });
 
   ApiService.getMessages(user_id).then(function(data) {
-    data.forEach(function(item) {
-      if (item.new) {
-        $scope.hasMessage = true;
-        $scope.$apply();
-        return;
-      }
-    });
+    $scope.hasMessage = data.filter(x => x.new == true).length > 0
+    $scope.$apply();
   });
 
   $scope.setAvatar = function() {

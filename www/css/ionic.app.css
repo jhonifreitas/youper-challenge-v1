@@ -9915,8 +9915,8 @@ a.button {
   width: 18px;
   height: 18px;
   border-radius: 50px;
-  background: #ffc900;
-  border: 2px solid #ffb347; }
+  background: #ffb347;
+  border: 2px solid #444; }
 
 /* MESSAGES */
 #messages .card {
@@ -9925,8 +9925,6 @@ a.button {
   position: relative;
   overflow: visible;
   background: #ccc; }
-  #messages .card .new {
-    background: #fff; }
   #messages .card .time {
     color: #888; }
   #messages .card .title {
@@ -9941,16 +9939,18 @@ a.button {
     background: transparent;
     border-bottom-right-radius: 15px !important;
     border-bottom-left-radius: 15px !important; }
-  #messages .card .new span {
-    position: absolute;
-    z-index: 9;
-    top: -6%;
-    right: -3%;
-    width: 20px;
-    height: 20px;
-    border-radius: 50px;
-    background: #ffb347;
-    border: 2px solid #444; }
+  #messages .card.new {
+    background: #fff; }
+    #messages .card.new span {
+      position: absolute;
+      z-index: 9;
+      top: -6%;
+      right: -3%;
+      width: 20px;
+      height: 20px;
+      border-radius: 50px;
+      background: #ffb347;
+      border: 2px solid #444; }
 
 /* DETAIL */
 #detail .padding {

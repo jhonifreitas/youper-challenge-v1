@@ -28,7 +28,7 @@ angular.module('app')
 
   // MESSAGES
   function getMessages(user_id){
-    return $http({ url: API_URL+'messages', method: 'GET'})
+    return $http.get(API_URL+'messages')
     .then(function(response) {
       return response.data;
     }, function(response){
@@ -37,9 +37,7 @@ angular.module('app')
   }
 
   function putMessage(id, message){
-    // delete message.id;
-    delete message.$$hashKey;
-    msgCollection.doc(id).update(message);
+    return $http.put(API_URL+'messages', message)
   }
 
   return {

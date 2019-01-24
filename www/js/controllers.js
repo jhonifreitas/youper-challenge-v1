@@ -1,21 +1,19 @@
-angular.module('app.controllers', [])
-.controller('AppCtrl', function($scope, $cordovaCamera) {
+angular.module('app.controllers', ['ngCordova'])
+.controller('AppCtrl', function($scope, $cordovaCamera, ApiService, StorageService) {
 
   $scope.user = null;
   $scope.hasMessage = false;
   user_id = 't9l18UKPut3npvMzNNjC';
 
-  firebase.firestore().collection("users").doc(user_id).get()
-  .then(function(snapshot) {
-    $scope.user = snapshot.data();
-    window.localStorage.setItem('user', JSON.stringify($scope.user))
+  ApiService.getUser(user_id).then(function(data) {
+    $scope.user = data;
+    StorageService.setUser($scope.user);
     $scope.$apply();
   });
 
-  firebase.firestore().collection("messages").where("user", "==", user_id).get()
-  .then(function(snapshot) {
-    snapshot.forEach(function(doc) {
-      if (doc.data().new) {
+  ApiService.getMessages(user_id).then(function(data) {
+    data.forEach(function(item) {
+      if (item.new) {
         $scope.hasMessage = true;
         $scope.$apply();
         return;
@@ -25,31 +23,25 @@ angular.module('app.controllers', [])
   });
 
   $scope.setAvatar = function() {
-
     $cordovaCamera.getPicture({
       quality: 90,
       destinationType: Camera.DestinationType.DATA_URL,
       sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-      allowEdit: false,
-      encodingType: Camera.EncodingType.JPEG,
-      popoverOptions: CameraPopoverOptions,
       saveToPhotoAlbum: false,
       correctOrientation: true
     }).then(function(imageBase64) {
-      console.log(imageBase64)
+      $scope.user.avatar = 'data:image/jpeg;base64,'+imageBase64;
+      ApiService.putUser($scope.id, $scope.user)
     });
   };
 })
 
-.controller('MessageCtrl', function($scope, $ionicModal) {
-  $scope.list = [];
-  user_id = JSON.parse(window.localStorage.getItem('user')).id
+.controller('MessageCtrl', function($scope, $ionicModal, ApiService, StorageService) {
 
-  firebase.firestore().collection("messages").where("user", "==", user_id).get()
-  .then(function(snapshot) {
-    snapshot.forEach(function(doc) {
-      $scope.list.push({ id: doc.id, ...doc.data() });
-    });
+  user_id = StorageService.getUser().id
+
+  ApiService.getMessages(user_id).then(function(data) {
+    $scope.list = data;
     $scope.$apply();
   });
 
@@ -58,13 +50,11 @@ angular.module('app.controllers', [])
   };
 
   $scope.goToDetail = function(object) {
+
     object.new = false;
-    id = object.id;
-    delete object.id;
-    delete object.$$hashKey;
     $scope.object = object;
 
-    firebase.firestore().collection("messages").doc(id).update(object);
+    ApiService.putMessage(object.id, object);
 
     $ionicModal.fromTemplateUrl('templates/message/detail.html', {
       scope: $scope
@@ -73,58 +63,4 @@ angular.module('app.controllers', [])
       $scope.modal.show();
     });
   };
-})
-
-.filter("timeAgo", function () {
-  return function (time, local, raw) {
-    if (!time) return "never";
-
-    if (!local) {
-      (local = Date.now())
-    }
-
-    if (angular.isDate(time)) {
-      time = time.getTime();
-    } else if (typeof time === "string") {
-      time = new Date(time).getTime();
-    }
-
-    if (angular.isDate(local)) {
-      local = local.getTime();
-    }else if (typeof local === "string") {
-      local = new Date(local).getTime();
-    }
-
-    if (typeof time !== 'number' || typeof local !== 'number') {
-      return;
-    }
-
-    var
-      offset = Math.abs((local - time) / 1000),
-      span = [],
-      MINUTE = 60,
-      HOUR = 3600,
-      DAY = 86400,
-      WEEK = 604800,
-      MONTH = 2629744,
-      YEAR = 31556926,
-      DECADE = 315569260;
-
-    if (offset <= MINUTE)              span = [ '', raw ? 'now' : 'less than a minute' ];
-    else if (offset < (MINUTE * 60))   span = [ Math.round(Math.abs(offset / MINUTE)), 'min' ];
-    else if (offset < (HOUR * 24))     span = [ Math.round(Math.abs(offset / HOUR)), 'hr' ];
-    else if (offset < (DAY * 7))       span = [ Math.round(Math.abs(offset / DAY)), 'day' ];
-    else if (offset < (WEEK * 52))     span = [ Math.round(Math.abs(offset / WEEK)), 'week' ];
-    else if (offset < (YEAR * 10))     span = [ Math.round(Math.abs(offset / YEAR)), 'year' ];
-    else if (offset < (DECADE * 100))  span = [ Math.round(Math.abs(offset / DECADE)), 'decade' ];
-    else                               span = [ '', 'a long time' ];
-
-    span[1] += (span[0] === 0 || span[0] > 1) ? 's' : '';
-    span = span.join(' ');
-
-    if (raw === true) {
-      return span;
-    }
-    return (time <= local) ? span + ' ago' : 'in ' + span;
-  }
 })

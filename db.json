@@ -1,0 +1,10 @@
+{
+    "messages": [
+        {
+            "id": 1,
+            "title": "New Feature!",
+            "body": "Now you can customize your avatar uploading your selfie. <br/><br/>Just click on the avatar, take or select a picture and save. <br/><br/><img src=\"https://res.cloudinary.com/jhoni14/image/upload/v1548164334/newfeature.png\"/>",
+            "new": false,
+        }
+    ]
+}

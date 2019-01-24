@@ -11,7 +11,7 @@ angular.module('app.controllers', ['ngCordova'])
     if (!$scope.$$phase) $scope.$apply();
   });
 
-  ApiService.getMessages(user_id).then(function(data) {
+  ApiService.getMessages().then(function(data) {
     $scope.hasMessage = data.filter(x => x.new == true).length > 0
     if (!$scope.$$phase) $scope.$apply();
   });
@@ -27,9 +27,7 @@ angular.module('app.controllers', ['ngCordova'])
 
 .controller('MessageCtrl', function($scope, $ionicModal, ApiService, StorageService) {
 
-  user_id = StorageService.getUser().id
-
-  ApiService.getMessages(user_id).then(function(data) {
+  ApiService.getMessages().then(function(data) {
     $scope.list = data;
     if (!$scope.$$phase) $scope.$apply();
   });

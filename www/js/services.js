@@ -11,7 +11,7 @@ angular.module('app')
   msgCollection = firestore.collection("messages");
 
   // USER
-  function getUser(id, callback){
+  function getUser(id){
     return $q(function(resolve, reject) {
       userCollection.doc(id).onSnapshot(function(doc) {
         resolve({ id: doc.id, ...doc.data() });
@@ -27,7 +27,7 @@ angular.module('app')
   }
 
   // MESSAGES
-  function getMessages(user_id){
+  function getMessages(){
     return $http.get(API_URL+'messages')
     .then(function(response) {
       return response.data;

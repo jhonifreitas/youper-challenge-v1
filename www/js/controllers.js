@@ -8,12 +8,12 @@ angular.module('app.controllers', ['ngCordova'])
   ApiService.getUser(user_id).then(function(data) {
     $scope.user = data;
     StorageService.setUser($scope.user);
-    $scope.$apply();
+    if (!$scope.$$phase) $scope.$apply();
   });
 
   ApiService.getMessages(user_id).then(function(data) {
     $scope.hasMessage = data.filter(x => x.new == true).length > 0
-    $scope.$apply();
+    if (!$scope.$$phase) $scope.$apply();
   });
 
   $scope.setAvatar = function() {
@@ -31,7 +31,7 @@ angular.module('app.controllers', ['ngCordova'])
 
   ApiService.getMessages(user_id).then(function(data) {
     $scope.list = data;
-    $scope.$apply();
+    if (!$scope.$$phase) $scope.$apply();
   });
 
   $scope.close = function() {

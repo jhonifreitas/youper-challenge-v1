@@ -1,16 +1,21 @@
 angular.module('app')
-.factory('ApiService', function() {
+.factory('ApiService', function($q) {
 
-  userCollection = firebase.firestore().collection("users");
-  msgCollection = firebase.firestore().collection("messages");
+  firestore = firebase.firestore();
+  const settings = { timestampsInSnapshots: true };
+  firestore.settings(settings);
+
+  userCollection = firestore.collection("users");
+  msgCollection = firestore.collection("messages");
 
   // USER
-  function getUser(id){
-    return userCollection.doc(id).get()
-    .then(function(snapshot) {
-      return {id: snapshot.id,...snapshot.data()};
-    }, function(error) {
-      return error
+  function getUser(id, callback){
+    return $q(function(resolve, reject) {
+      userCollection.doc(id).onSnapshot(function(doc) {
+        resolve({ id: doc.id, ...doc.data() });
+      }, function(err){
+        reject(err);
+      })
     })
   }
 
@@ -21,15 +26,16 @@ angular.module('app')
 
   // MESSAGES
   function getMessages(user_id){
-    return msgCollection.where("user", "==", user_id).get()
-    .then(function(snapshot) {
-      list = []
-      snapshot.forEach(function(doc) {
-        list.push({ id: doc.id, ...doc.data() });
-      });
-      return list;
-    }, function(error) {
-      return error
+    return $q(function(resolve, reject) {
+      msgCollection.where("user", "==", user_id).onSnapshot(function(docs) {
+        list = [];
+        docs.forEach(function(doc){
+          list.push({ id: doc.id, ...doc.data() });
+        })
+        resolve(list);
+      }, function(err){
+        reject(err);
+      })
     })
   }
 

@@ -3,7 +3,7 @@ angular.module('app.controllers', ['ngCordova'])
 
   $scope.user = null;
   $scope.hasMessage = false;
-  user_id = 't9l18UKPut3npvMzNNjC';
+  user_id = 'youper-v1';
 
   ApiService.getUser(user_id).then(function(data) {
     $scope.user = data;

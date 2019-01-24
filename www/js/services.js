@@ -1,5 +1,7 @@
 angular.module('app')
-.factory('ApiService', function($q) {
+.factory('ApiService', function($q, $http) {
+
+  API_URL = 'https://my-json-server.typicode.com/jhonifreitas/youper-challenge-v1/';
 
   firestore = firebase.firestore();
   const settings = { timestampsInSnapshots: true };
@@ -26,16 +28,11 @@ angular.module('app')
 
   // MESSAGES
   function getMessages(user_id){
-    return $q(function(resolve, reject) {
-      msgCollection.where("user", "==", user_id).onSnapshot(function(docs) {
-        list = [];
-        docs.forEach(function(doc){
-          list.push({ id: doc.id, ...doc.data() });
-        })
-        resolve(list);
-      }, function(err){
-        reject(err);
-      })
+    return $http({ url: API_URL+'messages', method: 'GET'})
+    .then(function(response) {
+      return response.data;
+    }, function(response){
+      return response;
     })
   }
 

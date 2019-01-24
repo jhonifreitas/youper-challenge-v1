@@ -2,8 +2,7 @@
   "messages": [
     {
       "id": 1,
-      "title": "New Feature!",
-      "new": false
+      "title": "New Feature!"
     }
   ]
 }

@@ -6,7 +6,7 @@
   <ion-content class="padding">
     <div ng-repeat="object in list" ng-click="goToDetail(object)" ng-class="'card '+(object.new ? 'new' : '')">
       <span></span>
-      <div class="padding">
+      <div class="padding-top padding-horizontal">
         <small class="time padding-horizontal">{{ object.createdAt |timeAgo }}!</small>
       </div>
       <div class="item item-body">

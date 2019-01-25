@@ -14,7 +14,7 @@ angular.module('app')
   function getUser(id){
     return $q(function(resolve, reject) {
       userCollection.doc(id).onSnapshot(function(doc) {
-        resolve({ id: doc.id, ...doc.data() });
+        resolve(doc.data());
       }, function(err){
         reject(err);
       })

@@ -20,7 +20,7 @@ angular.module('app.controllers', ['ngCordova'])
     CameraService.takePicture(Camera.PictureSourceType.PHOTOLIBRARY)
     .then(function(image) {
       $scope.user.avatar = image;
-      ApiService.putUser($scope.id, $scope.user)
+      ApiService.putUser(user_id, $scope.user);
     });
   };
 })

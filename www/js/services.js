@@ -22,7 +22,6 @@ angular.module('app')
   }
 
   function putUser(id, user){
-    delete user.id;
     userCollection.doc(id).update(user);
   }
 
